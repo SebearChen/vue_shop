@@ -90,6 +90,7 @@
                        :props="cascaderProps"
                        props.expandTrigger="hover"
                        @change="parentCateChanged"
+                       props.checkStrictly="true"
                        clearable></el-cascader>
         </el-form-item>
       </el-form>
@@ -170,7 +171,8 @@ export default {
       cascaderProps: {
         value: 'cat_id',
         label: 'cat_name',
-        children: 'children'
+        children: 'children',
+        checkStrictly: 'true'
       },
       // 选中的父级分类的Id数组
       selectedKeys: []
@@ -182,7 +184,7 @@ export default {
   methods: {
     // 获取商品分类数据
     async getCateList () {
-      const { data: res } = await this.$http.get('categories', { params: this.querInfo })
+      const { data: res } = await this.$http.get('categories', { params: this.queryInfo })
       if (res.meta.status !== 200) {
         return this.$message.error('获取商品分类失败！')
       }
@@ -190,12 +192,12 @@ export default {
     },
     // 监听 pagesize 改变
     handleSizeChange (newSize) {
-      this.querInfo.pagesize = newSize
+      this.queryInfo.pagesize = newSize
       this.getCateList()
     },
     // 监听 pagenum 改变
     handleCurrentChange (newPage) {
-      this.querInfo.pagenum = newPage
+      this.queryInfo.pagenum = newPage
       this.getCateList()
     },
     // 点击按钮，展示添加分类的对话框
