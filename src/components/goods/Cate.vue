@@ -188,7 +188,8 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.error('获取商品分类失败！')
       }
-      this.catelist = res.data
+      // 把数据列表,赋值给 catelist
+      this.catelist = res.data.result
     },
     // 监听 pagesize 改变
     handleSizeChange (newSize) {
